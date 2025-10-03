@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.Design.Serialization;
 
 namespace Lab2
 {
@@ -121,19 +122,24 @@ namespace Lab2
         {
             double SS = 0;
             double SY = 0;
-            const int m = 10000;
             // code here
-            for (double x = a; x <= b; x += h)
+            for (double x = a; x <= b + E; x += h)
             {
                 double s = 0.0;
                 int i = 0;
                 double t = x;
-                while (Math.Abs(t) >= E) 
+                while (true) 
                 {
-                    s += t;
+                    double c = Math.Pow(-1, i) * Math.Pow(x, 2*i+1)/ (2*i+1);
+                    s+= c;
+                    if (Math.Abs(c) < E)
+                    {
+                        break;
+                    }
                     i++;
-                    t = t*(Math.Pow(-1, i)*( Math.Pow(x, 2 * i + 1) / (2 * i + 1)));
-            
+                    t += c;
+          
+                 
                 } 
                 double y = Math.Atan(x);
                 SS += s;
